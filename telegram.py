@@ -10,6 +10,8 @@ from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
 from aiogram.types import Message
 
+from agent import query_agent
+
 # Bot token can be obtained via https://t.me/BotFather
 load_dotenv()
 TOKEN = getenv("BOT_TOKEN")
@@ -39,9 +41,11 @@ async def echo_handler(message: Message) -> None:
 
     By default, message handler will handle all message types (like a text, photo, sticker etc.)
     """
+    print(message.text)
     try:
         # Send a copy of the received message
-        await message.answer("merhaba")
+        answer = query_agent(message.text)
+        await message.answer(answer)
         # await message.send_copy(chat_id=message.chat.id)
     except TypeError:
         # But not all the types is supported to be copied so need to handle it
