@@ -232,7 +232,6 @@ def query_agent(user_message: str) -> str:
         print("decided not to use tools")
         return top_message.content
 
-    print("second call with tool use")
     # Otherwise, we execute each function call in turn,
     # append the result as a "tool" message, then ask the model to use that data.
     messages.append(top_message)  # the original response containing the function calls
@@ -240,6 +239,7 @@ def query_agent(user_message: str) -> str:
     # Iterate through each tool call
     for tool_call in tool_calls:
         name = tool_call.function.name
+        print("called the following tool: " + name)
         try:
             arguments = json.loads(tool_call.function.arguments)
         except json.JSONDecodeError:
@@ -248,7 +248,6 @@ def query_agent(user_message: str) -> str:
             arguments = {}
 
         # Execute the appropriate local Python function
-        print("called " + name)
         if name == "search_products_klevu":
             result_data = search_products_klevu(**arguments)
             result_str = json.dumps(result_data)

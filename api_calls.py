@@ -18,7 +18,6 @@ def search_products_klevu(term, page_size=5, page=1):
         response.raise_for_status()
 
         result = response.json()
-        print("klevu returns " + json.dumps(result, indent=4))
         return result
     except requests.RequestException as e:
         print("Error in search_products_klevu:", str(e))
@@ -34,7 +33,6 @@ def search_products_azure(query, limit=3):
         response.raise_for_status()
 
         result = response.json()
-        print("azure returns " + json.dumps(result, indent=4))
         return result
     except requests.RequestException as e:
         print("Error in search_products_azure:", str(e))
@@ -48,7 +46,6 @@ def get_product_details(part_number):
         response.raise_for_status()
 
         result = response.json()
-        print("product details api returns " + json.dumps(result, indent=4))
         return result
     except requests.RequestException as e:
         print("Error in get_product_details:", str(e))
